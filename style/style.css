@@ -1,0 +1,415 @@
+/* Reset cơ bản */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: black;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+/* ===== NỀN TỐI MỜ XUNG QUANH ===== */
+#intro {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background:
+    radial-gradient(circle at center,
+      rgba(255, 105, 180, 0.15) 0%,
+      rgba(20, 0, 40, 0.8) 40%,
+      rgba(0, 0, 0, 0.95) 70%);
+
+  transition: opacity 1s ease; /* 🔥 thêm dòng này */
+}
+
+
+/* ===== SỐ COUNTDOWN ===== */
+#countdown {
+  font-size: 120px;
+  font-weight: bold;
+  color: #ff4da6;
+
+  text-shadow:
+    0 0 8px #ff4da6,
+    0 0 18px #ff4da6,
+    0 0 35px rgba(255, 77, 166, 0.6);
+
+  animation: countdownPop 1s ease;
+}
+
+/* hiệu ứng xuất hiện */
+@keyframes countdownPop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  60% {
+    transform: scale(1.15);
+    filter: blur(0);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 2s ease;
+  pointer-events: none;
+
+  background: transparent; /* 👈 QUAN TRỌNG */
+}
+
+
+/* khi pháo hoa bật */
+#stars.active {
+  opacity: 1;
+}
+
+/* sao */
+#stars::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow:
+    5vw 10vh #fff,
+    15vw 30vh #fff,
+    25vw 80vh #fff,
+    35vw 50vh #fff,
+    45vw 20vh #fff,
+    55vw 70vh #fff,
+    65vw 40vh #fff,
+    75vw 60vh #fff,
+    85vw 30vh #fff,
+    95vw 80vh #fff,
+    10vw 60vh #fff,
+    20vw 15vh #fff,
+    30vw 90vh #fff,
+    40vw 10vh #fff,
+    50vw 50vh #fff,
+    60vw 85vh #fff,
+    70vw 25vh #fff,
+    80vw 75vh #fff,
+    90vw 45vh #fff;
+}
+
+
+#stars.active::after {
+  animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.3; }
+  to   { opacity: 1; }
+}
+
+
+/*text*/
+#galaxy {
+    position: fixed;   /* quan trọng */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 2;        /* cao hơn pháo hoa */
+}
+
+.floating-text {
+    position: absolute;
+    bottom: -50px;
+    font-family: Arial, sans-serif;
+    padding: 5px 15px;
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 105, 180, 0.6);   /* viền hồng */
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.6);/* glow hồng */
+
+    white-space: nowrap;
+    pointer-events: none;
+    animation: moveUp linear forwards;
+
+    /* 👇 NEON */
+    text-shadow:
+  0 0 3px currentColor,
+  0 0 6px currentColor,
+  0 0 12px rgba(255, 77, 166, 0.6);
+}
+
+@keyframes moveUp {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-110vh); /* Bay vượt quá màn hình */
+        opacity: 0;
+    }
+}
+
+/* Canvas pháo hoa trong suốt */
+#fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* trên galaxy nhưng dưới intro */
+  pointer-events: none;
+  background: transparent; /* cực kỳ quan trọng */
+}
+
+/* Container xoay */
+#rotatingContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  animation: rotateSlow 60s linear infinite;
+}
+
+/* Intro */
+#intro {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  text-align: center;
+}
+
+
+/* Khối trung tâm */
+#intro_centre {
+  animation: fadeIn 2s ease;
+}
+
+/* Tên hiển thị */
+#newyear {
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 10px;
+  text-shadow: 0 0 20px #ff4da6, 0 0 40px #ff4da6;
+  opacity: 0;
+  transition: opacity 2s ease; /* thời gian mờ */
+}
+
+/* Countdown */
+#countdown {
+  font-size: 60px;
+  font-weight: bold;
+}
+
+
+
+/* Hiệu ứng fade */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Animation trái tim bay và text*/
+/* Trái tim */
+.heart {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: red;
+  transform: rotate(45deg);
+  z-index: 4;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+}
+
+.heart::before { top: -10px; left: 0; }
+.heart::after  { left: -10px; top: 0; }
+
+@keyframes moveUp {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-110vh); /* Bay vượt quá màn hình */
+        opacity: 0;
+    }
+}
+
+.shooting-star {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 3;
+
+  box-shadow:
+  0 0 8px #fff,
+  0 0 16px #fff,
+  0 0 32px #fff,
+  -80px 40px 40px rgba(255,255,255,0.6),
+  -160px 80px 60px rgba(255,255,255,0.4);
+
+
+  animation: shoot 2.5s linear forwards;
+}
+@keyframes shoot {
+  0% {
+    transform: translate(0,0) scale(1) rotate(var(--angle));
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-700px, 400px) scale(0.3) rotate(var(--angle));
+    opacity: 0;
+  }
+}
+
+#floating-images {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1; /* trên pháo hoa, dưới text */
+}
+
+.floating-image {
+    position: absolute;
+    bottom: -100px; /* xuất phát dưới màn hình */
+    width: 180px;
+    height: auto;
+    pointer-events: none;
+
+    /* Khung hồng phát sáng */
+    border: 2px solid rgba(255, 77, 166, 0.6);
+    border-radius: 10px;
+    box-shadow:
+        0 0 5px rgba(255, 77, 166, 0.6),
+        0 0 10px rgba(255, 77, 166, 0.6),
+        0 0 20px rgba(255, 77, 166, 0.5);
+
+    animation: floatUp linear forwards;
+}
+
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-110vh) scale(0.8); /* bay lên vượt màn hình */
+        opacity: 0;
+    }
+}
+
+#credit {
+  position: fixed;
+  bottom: 15px;
+  left: 15px;
+  font-size: 14px;
+  color: #ff4da6; /* hồng neon cho hợp theme */
+
+  text-shadow:
+    0 0 5px #ff4da6,
+    0 0 10px #ff4da6,
+    0 0 20px #ff4da6;
+
+  opacity: 0.8;
+  z-index: 5; /* nằm trên mọi hiệu ứng */
+  pointer-events: none;
+  font-family: Arial, sans-serif;
+}
+
+#credit {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+#credit.show {
+  opacity: 0.8;
+}
+
+#mini-heart-sphere {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+  z-index: 5;
+  transform-style: preserve-3d;
+  animation: rotateMiniSphere 10s linear infinite;
+}
+
+#music-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 10;
+
+  background: rgba(255, 77, 166, 0.15);
+  border: 1px solid #ff4da6;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+
+  box-shadow:
+    0 0 5px #ff4da6,
+    0 0 10px #ff4da6;
+}
